@@ -1,9 +1,23 @@
 'use strict';
-
+/*
+Setup the inital variables that will be called
+*/
 const input_number = 2726966;
 const number = (""+input_number).split("");
 const words = [];
-const master_key = [[" "],[" "],["A","B","C"],["D","E","F"],["G","H","I"],["J","K","L"],["M","N","O"],["P","Q","R","S"],["T","U","V"],["W","X","Y","Z"]]
+const master_key = [
+					["0"],
+					["1"],
+					["2","A","B","C"],
+					["3","D","E","F"],
+					["4","G","H","I"],
+					["5","J","K","L"],
+					["6","M","N","O"],
+					["7","P","Q","R","S"],
+					["8","T","U","V"],
+					["9","W","X","Y","Z"]
+				];
+const vowels = ["A","E","I","O","U"];
 const myKey = [];
 const maxKeyCount = [];
 const currentKeyCount = [];
@@ -22,6 +36,18 @@ function pushCount(x) {
 	}
 }
 
+function judgeWord(word) {
+	//check for vowels
+	for (let x = 0; x < vowels.length; x++) {
+		if (word.indexOf(vowels[x]) > -1) {
+			console.log(word);
+			count++;
+			break;
+		}
+	}
+}
+
+// Populate the arrays for myKey, maxKeyCount & currentKeyCount
 for (let x = 0; x < number.length; x++) {
 	myKey.push(master_key[number[x]]);
 	maxKeyCount.push(myKey[x].length);
@@ -34,9 +60,9 @@ while (currentKeyCount[0] < maxKeyCount[0]) {
 	for (let x = 0; x < currentKeyCount.length; x++) {
 		word = word + myKey[x][currentKeyCount[x]];
 	}
-	console.log(word);
+	judgeWord(word);
 	pushCount(currentKeyCount.length -1);
-	count++;
+	
 }
 
 console.log(count);
