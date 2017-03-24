@@ -1,7 +1,15 @@
 'use strict';
+
+// Get required 
+const fs = require('fs');
+
 /*
 Setup the inital variables that will be called
 */
+const file = fs.readFileSync("dictionary.txt", "utf-8");
+const dictionary = file.split(",");
+
+console.log("Using dictionary size of: " + dictionary.length);
 const input_number = 2726966;
 const number = (""+input_number).split("");
 const words = [];
@@ -17,7 +25,6 @@ const master_key = [
 					["8","T","U","V"],
 					["9","W","X","Y","Z"]
 				];
-const vowels = ["A","E","I","O","U"];
 const myKey = [];
 const maxKeyCount = [];
 const currentKeyCount = [];
@@ -38,9 +45,9 @@ function pushCount(x) {
 
 function judgeWord(word) {
 	//check for vowels
-	for (let x = 0; x < vowels.length; x++) {
-		if (word.indexOf(vowels[x]) > -1) {
-			console.log(word);
+	for (let x = 0; x < dictionary.length; x++) {
+		if (word.indexOf(dictionary[x]) > -1) {
+			console.log(dictionary[x], word);
 			count++;
 			break;
 		}
@@ -48,21 +55,23 @@ function judgeWord(word) {
 }
 
 // Populate the arrays for myKey, maxKeyCount & currentKeyCount
+console.log("Building Key...");
 for (let x = 0; x < number.length; x++) {
 	myKey.push(master_key[number[x]]);
 	maxKeyCount.push(myKey[x].length);
 	currentKeyCount.push(0);
 }
 
+console.log("Starting Search...");
 while (currentKeyCount[0] < maxKeyCount[0]) {
 	let word = "";
 
 	for (let x = 0; x < currentKeyCount.length; x++) {
 		word = word + myKey[x][currentKeyCount[x]];
 	}
-	judgeWord(word);
+	judgeWord(word.toLowerCase());
 	pushCount(currentKeyCount.length -1);
 	
 }
 
-console.log(count);
+console.log("Finished! Words found: " + count);
