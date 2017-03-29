@@ -1,5 +1,9 @@
 'use strict';
 
+/*
+This is the main file of the application responcible for seeing what words are contained in the phone number
+*/
+
 // Get required 
 const fs = require('fs');
 
@@ -10,7 +14,8 @@ const file = fs.readFileSync("dictionary.txt", "utf-8");
 const dictionary = file.split(",");
 
 console.log("Using dictionary size of: " + dictionary.length);
-const input_number = 2726966;
+
+const input_number = 1234567;
 const number = (""+input_number).split("");
 const words = [];
 const master_key = [
@@ -30,6 +35,7 @@ const maxKeyCount = [];
 const currentKeyCount = [];
 let count = 0;
 
+// Main function to keep track of the currentKeyCount 
 function pushCount(x) {
 	if (currentKeyCount[x] < maxKeyCount[x] - 1) {
 		currentKeyCount[x] = currentKeyCount[x] + 1;
@@ -43,19 +49,19 @@ function pushCount(x) {
 	}
 }
 
+// Function responsible for checking to see if a word in dictionary file is contained in the current word
 function judgeWord(word) {
-	//check for vowels
 	for (let x = 0; x < dictionary.length; x++) {
 		if (word.indexOf(dictionary[x]) > -1) {
 			console.log(dictionary[x], word);
-			count++;
+			count++; //increment count
 			break;
 		}
 	}
 }
 
-// Populate the arrays for myKey, maxKeyCount & currentKeyCount
 console.log("Building Key...");
+// Populates the arrays for myKey, maxKeyCount & currentKeyCount
 for (let x = 0; x < number.length; x++) {
 	myKey.push(master_key[number[x]]);
 	maxKeyCount.push(myKey[x].length);
@@ -63,6 +69,7 @@ for (let x = 0; x < number.length; x++) {
 }
 
 console.log("Starting Search...");
+// The main loop to run through all possible iterations in phone number
 while (currentKeyCount[0] < maxKeyCount[0]) {
 	let word = "";
 

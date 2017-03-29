@@ -1,13 +1,20 @@
 'use strict';
 
+/*
+This is the build file of the application responcible for setting up the dictionary file from a .dic file type.
+It also makes sure that only alpha characters pass into the final dictionary file.
+*/
+
 // Get required 
 const fs = require('fs');
 
-const dictionary = fs.createReadStream('hunspell-en_US-2017.01.22/en_US.dic');
+// Initial values
+const dictionary = fs.createReadStream('hunspell-en_US-2017.01.22/en_US.dic'); // This pulls from the location of the .dic file
 const newDictionaryFile = fs.createWriteStream('dictionary.txt');
 const newDictionary = [];
 let count = 0;
 
+// Main function to read and parse .dic file contents
 function readLines(dictionary, func) {
 	var remaining = '';
 
@@ -33,6 +40,7 @@ function readLines(dictionary, func) {
 	});
 }
 
+// Function to build out array and only include characters a - z
 function addToArr(data) {
 	if (data.indexOf('/') > -1) data = data.substring(0, data.indexOf('/'));
 	if (data.match(/^[a-z]+$/)) {
@@ -43,6 +51,8 @@ function addToArr(data) {
 	}
 }
 
+
+// Function to finish build and write array to dictionary.txt file
 function finish() {
 	fs.writeFile('dictionary.txt', newDictionary, function (err) {
 		if (err) {
