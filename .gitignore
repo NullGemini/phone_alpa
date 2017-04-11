@@ -8,3 +8,5 @@ logs
 *.settings
 *.classpath
 *debug*
+.gitignore
+node_modules

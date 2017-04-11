@@ -1,20 +1,25 @@
 {
-	"name": "phone_alpha",
-	"version": "1.0.0",
-	"description": "See what words your phone number contains",
-	"main": "index.js",
-	"scripts": {
-		"start": "node index.js",
-		"build": "node build.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/NullGemini/phone_alpha.git"
-	},
-	"author": "Adam Mugnaini",
-	"license": "ISC",
-	"devDependencies": {
-		"fs": "0.0.1-security"
-	}
+  "name": "phone_alpha",
+  "version": "1.0.0",
+  "description": "See what words your phone number contains",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NullGemini/phone_alpha.git"
+  },
+  "author": "Adam Mugnaini",
+  "license": "ISC",
+  "webServer": {
+    "folder": "www",
+    "port": "3000"
+  },
+  "dependencies": {
+    "formidable": "^1.1.1",
+    "fs": "0.0.1-security"
+  }
 }
