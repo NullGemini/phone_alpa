@@ -16,8 +16,8 @@ const dictionary = file.split(",");
 console.log("Using dictionary size of: " + dictionary.length);
 
 module.exports = function(input_number) {
-
-	const number = (""+input_number).split("");
+	console.log ("Using number: " + input_number)
+	const number = (input_number).split(""); // Convert input number to an array
 	const words = [];
 	const master_key = [
 						["0"],
@@ -55,7 +55,8 @@ module.exports = function(input_number) {
 	function judgeWord(word) {
 		for (let x = 0; x < dictionary.length; x++) {
 			if (word.indexOf(dictionary[x]) > -1) {
-				results.push(dictionary[x], word);
+				// If found in dictionary add to results
+				results.push([dictionary[x], word]);
 				count++; //increment count
 				break;
 			}
@@ -82,7 +83,6 @@ module.exports = function(input_number) {
 		pushCount(currentKeyCount.length -1);
 		
 	}
-
-		return(results.toString());
-		console.log("Finished! Words found: " + count);
+	console.log("Finished! Words found: " + count);
+	return(JSON.stringify(results));
 }

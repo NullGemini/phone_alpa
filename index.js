@@ -4,6 +4,7 @@ const http = require('http');
 const formidable = require("formidable");
 const util = require('util');
 const phone = require('./phone.js');
+const page = 'www/index.html';
 
 const server = http.createServer(function (req, res) {
 	if (req.method.toLowerCase() == 'get') {
@@ -15,7 +16,7 @@ const server = http.createServer(function (req, res) {
 });
 
 function displayForm(res) {
-	fs.readFile('www/index.html', function (err, data) {
+	fs.readFile(page, function (err, data) {
 		res.writeHead(200, {
 			'Content-Type': 'text/html',
 				'Content-Length': data.length
@@ -26,7 +27,8 @@ function displayForm(res) {
 }
 
 function processPhone(req, res) {
-	var form = new formidable.IncomingForm();
+	const form = new formidable.IncomingForm();
+	let data = [];
 
 	form.parse(req, function (err, fields) {
 		//Store the data from the fields in your data store.
