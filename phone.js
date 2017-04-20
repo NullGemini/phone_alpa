@@ -58,6 +58,7 @@ module.exports = function(input_number) {
 				// If found in dictionary add to results
 				results.push([dictionary[x], word]);
 				count++; //increment count
+				dictionary.splice(x, 1);
 				break;
 			}
 		}
